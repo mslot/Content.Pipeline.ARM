@@ -2,6 +2,19 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
+    "sqlServerUsername": {
+      "type": "string"
+    },
+    "sqlServerPassword": {
+      "type": "securestring"
+    },
+    "sqlServerDatabaseName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sqlServerName": {
+      "type": "string"
+    },
     "env": {
       "type": "string"
     },
@@ -11,10 +24,15 @@
     "storageUri": {
       "type": "string"
     }
+
   },
   "variables": {
     "azuretemplatestoragename": "[concat('azuretemplatestorage',parameters('env'))]",
-    "azuretemplatestorageurl": "[parameters('storageUri')]"
+    "azuretemplatestorageurl": "[parameters('storageUri')]",
+    "sqlServerDatabaseName": "[concat(parameters('sqlServerDatabaseName'),'-',parameters('env'))]",
+    "sqlServerName": "[concat(parameters('sqlServerName'),'-',parameters('env'))]",
+    "webappName": "webapp-testapi-dev",
+    "serverfarmName": "farm-dev"
   },
   "resources": [
     {
@@ -28,31 +46,9 @@
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
+          "webappName": { "value": "[variables('webappName')]" },
           "farmResourceId": { "value": "[reference('serverfarmDeploy').outputs.resourceId.value]" },
           "connectionstring": { "value": "[reference('databaseDeploy').outputs.connectionstring.value]" },
-          "webappName": { "value": "testwebappforlinkedtemplates" },
-          "appsettings": {
-            "value": [
-            ]
-          }
-        }
-      },
-      "type": "Microsoft.Resources/deployments"
-    },
-    {
-      "apiVersion": "2018-05-01",
-      "dependsOn": [ "databaseDeploy", "serverfarmDeploy" ],
-      "name": "website2Deploy",
-      "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-          "uri": "[uri(deployment().properties.templateLink.uri,concat('Modules/','website.json',parameters('storageSasToken')))]",
-          "contentVersion": "1.0.0.0"
-        },
-        "parameters": {
-          "farmResourceId": { "value": "[reference('serverfarmDeploy').outputs.resourceId.value]" },
-          "connectionstring": { "value": "[reference('databaseDeploy').outputs.connectionstring.value]" },
-          "webappName": { "value": "testwebappforlinkedtemplates2" },
           "appsettings": {
             "value": [
             ]
@@ -72,6 +68,10 @@
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
+          "username": { "value": "[parameters('sqlServerUsername')]" },
+          "password": { "value": "[parameters('sqlServerPassword')]" },
+          "databaseName": { "value": "[variables('sqlServerDatabaseName')]" },
+          "serverName": { "value": "[variables('sqlServerName')]" }
 
         }
       }
@@ -87,7 +87,7 @@
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
-          "farmName": { "value": "serverfarmtestytest" }
+          "farmName": { "value": "[variables('serverfarmName')]" }
         }
       }
     }

@@ -2,16 +2,18 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "sqlservertestAdminLogin": {
+    "username": {
       "type": "string"
     },
-    "sqlservertestAdminLoginPassword": {
+    "password": {
       "type": "securestring"
     },
-    "sqldatabaseName": {
+    "databaseName": {
       "type": "string",
-      "minLength": 1,
-      "defaultValue": "sqldatabasetest"
+      "minLength": 1
+    },
+    "serverName": {
+      "type": "string"
     },
     "sqldatabaseCollation": {
       "type": "string",
@@ -45,21 +47,19 @@
     }
   },
   "variables": {
-    "sqlservertestName": "[concat('sqlservertestergklnergnkejrg')]"
   },
   "resources": [
     {
-      "name": "[variables('sqlservertestName')]",
+      "name": "[parameters('serverName')]",
       "type": "Microsoft.Sql/servers",
       "location": "[resourceGroup().location]",
       "apiVersion": "2014-04-01-preview",
       "dependsOn": [ ],
       "tags": {
-        "displayName": "sqlservertest"
       },
       "properties": {
-        "administratorLogin": "[parameters('sqlservertestAdminLogin')]",
-        "administratorLoginPassword": "[parameters('sqlservertestAdminLoginPassword')]"
+        "administratorLogin": "[parameters('username')]",
+        "administratorLoginPassword": "[parameters('password')]"
       },
       "resources": [
         {
@@ -68,7 +68,7 @@
           "location": "[resourceGroup().location]",
           "apiVersion": "2014-04-01-preview",
           "dependsOn": [
-            "[resourceId('Microsoft.Sql/servers', variables('sqlservertestName'))]"
+            "[resourceId('Microsoft.Sql/servers', parameters('serverName'))]"
           ],
           "properties": {
             "startIpAddress": "0.0.0.0",
@@ -76,15 +76,14 @@
           }
         },
         {
-          "name": "[parameters('sqldatabaseName')]",
+          "name": "[parameters('databaseName')]",
           "type": "databases",
           "location": "[resourceGroup().location]",
           "apiVersion": "2014-04-01-preview",
           "dependsOn": [
-            "[resourceId('Microsoft.Sql/servers', variables('sqlservertestName'))]"
+            "[resourceId('Microsoft.Sql/servers', parameters('serverName'))]"
           ],
           "tags": {
-            "displayName": "sqldatabase"
           },
           "properties": {
             "collation": "[parameters('sqldatabaseCollation')]",
@@ -99,7 +98,7 @@
   "outputs": {
     "connectionstring": {
       "type": "string",
-      "value": "[concat('Server=tcp:',reference(variables('sqlservertestName')).fullyQualifiedDomainName,',1433;Initial Catalog=',parameters('sqldatabaseName'),';Persist Security Info=False;User ID=',parameters('sqlservertestAdminLogin'),';Password=',parameters('sqlservertestAdminLoginPassword'),';MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;')]"
+      "value": "[concat('Server=tcp:',reference(parameters('serverName')).fullyQualifiedDomainName,',1433;Initial Catalog=',parameters('databaseName'),';Persist Security Info=False;User ID=',parameters('username'),';Password=',parameters('password'),';MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;')]"
     }
   }
 }
