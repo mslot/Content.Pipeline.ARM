@@ -34,7 +34,20 @@
       "tags": {
         "displayName": "azuretemplate"
       },
-      "kind": "Storage"
+      "kind": "StorageV2",
+      "resources": [
+        {
+          "type": "blobServices/containers",
+          "apiVersion": "2018-03-01-preview",
+          "name": "default/arm",
+          "dependsOn": [
+            "[variables('azuretemplateStorageName')]"
+          ],
+          "properties": {
+            "publicAccess": "None"
+          }
+        }
+      ]
     }
   ],
   "outputs": {
