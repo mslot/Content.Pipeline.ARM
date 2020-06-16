@@ -29,7 +29,7 @@
     <Content Include="Deploy-AzureResourceGroup.ps1" />
     <None Include="Init\azuretemplatestorage.parameters.json" />
     <None Include="Init\azuretemplatestorage.json" />
-    <None Include="maintemplate.dev.parameters.json" />
+    <None Include="maintemplate.parameters.json" />
     <None Include="maintemplate.json" />
     <None Include="Modules\database.json" />
     <None Include="Modules\serverfarm.json" />
