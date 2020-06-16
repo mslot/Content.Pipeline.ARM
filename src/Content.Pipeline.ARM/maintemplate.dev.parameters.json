@@ -4,6 +4,6 @@
   "parameters": {
     "storageSasToken": { "value": null },
     "storageUri": { "value": null },
-    "env": { "value": "dev" }
+    "env": { "value": null }
   }
 }

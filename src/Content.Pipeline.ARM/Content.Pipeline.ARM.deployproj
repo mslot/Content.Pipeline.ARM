@@ -27,7 +27,7 @@
       <Visible>False</Visible>
     </None>
     <Content Include="Deploy-AzureResourceGroup.ps1" />
-    <None Include="Init\azuretemplatestorage.dev.parameters.json" />
+    <None Include="Init\azuretemplatestorage.parameters.json" />
     <None Include="Init\azuretemplatestorage.json" />
     <None Include="maintemplate.dev.parameters.json" />
     <None Include="maintemplate.json" />
