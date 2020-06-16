@@ -1,0 +1,97 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "env": {
+      "type": "string"
+    },
+    "storageSasToken": {
+      "type": "string"
+    },
+    "storageUri": {
+      "type": "string"
+    }
+  },
+  "variables": {
+    "azuretemplatestoragename": "[concat('azuretemplatestorage',parameters('env'))]",
+    "azuretemplatestorageurl": "[parameters('storageUri')]"
+  },
+  "resources": [
+    {
+      "apiVersion": "2018-05-01",
+      "dependsOn": [ "databaseDeploy", "serverfarmDeploy" ],
+      "name": "websiteDeploy",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[uri(deployment().properties.templateLink.uri,concat('website.json',parameters('storageSasToken')))]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "farmResourceId": { "value": "[reference('serverfarmDeploy').outputs.resourceId.value]" },
+          "connectionstring": { "value": "[reference('databaseDeploy').outputs.connectionstring.value]" },
+          "webappName": { "value": "testwebappforlinkedtemplates" },
+          "appsettings": {
+            "value": [
+            ]
+          }
+        }
+      },
+      "type": "Microsoft.Resources/deployments"
+    },
+    {
+      "apiVersion": "2018-05-01",
+      "dependsOn": [ "databaseDeploy", "serverfarmDeploy" ],
+      "name": "website2Deploy",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[uri(deployment().properties.templateLink.uri,concat('Modules/','website.json',parameters('storageSasToken')))]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "farmResourceId": { "value": "[reference('serverfarmDeploy').outputs.resourceId.value]" },
+          "connectionstring": { "value": "[reference('databaseDeploy').outputs.connectionstring.value]" },
+          "webappName": { "value": "testwebappforlinkedtemplates2" },
+          "appsettings": {
+            "value": [
+            ]
+          }
+        }
+      },
+      "type": "Microsoft.Resources/deployments"
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2018-05-01",
+      "name": "databaseDeploy",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[uri(deployment().properties.templateLink.uri,concat('Modules/','database.json',parameters('storageSasToken')))]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2018-05-01",
+      "name": "serverfarmDeploy",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[uri(deployment().properties.templateLink.uri,concat('Modules/','serverfarm.json',parameters('storageSasToken')))]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "farmName": { "value": "serverfarmtestytest" }
+        }
+      }
+    }
+  ],
+  "outputs": {
+  }
+}
