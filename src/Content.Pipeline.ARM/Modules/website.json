@@ -17,14 +17,6 @@
   },
   "variables": {
     "builtinAppsettings": [
-      {
-        "name": "builtin_setting",
-        "value": "builtin_test"
-      },
-      {
-        "name": "updated_for_all",
-        "value": "yabiii"
-      }
     ],
     "finalAppsettings": "[union(variables('builtinAppsettings'),parameters('appsettings'))]",
     "connectionstrings": [
