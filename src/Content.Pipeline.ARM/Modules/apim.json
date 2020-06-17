@@ -62,7 +62,7 @@
           ],
           "properties": {
             "displayName": "Creator API",
-            "contentFormat": "SwaggerLinkJson",
+            "contentFormat": "swagger-link-json",
             "contentValue": "[concat('https://webapp-contentpipeline-creator-api-',parameters('env'),'.azurewebsites.net','/swagger/v1/swagger.json')]",
             "path": "creator",
             "protocols": [ "https" ]
