@@ -51,7 +51,7 @@
               "priority": "1",
               "tag": "Default",
               "action": "Allow",
-              "vnetSubnetResoruceId": "[concat(resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName')),'/subnets/',parameters('subnetName'))]",
+              "vnetSubnetResoruceId": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName')),'/subnets/',parameters('subnetName'))]",
               "description": "We only want to allow traffic from the VNET"
             }
           ]
