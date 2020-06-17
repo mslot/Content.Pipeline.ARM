@@ -47,25 +47,7 @@
         "serverFarmId": "[parameters('farmResourceId')]",
         "siteConfig": {
           "appSettings": "[variables('finalAppsettings')]",
-          "connectionStrings": "[variables('connectionstrings')]",
-          "ipSecurityRestrictions": [
-            {
-              "name": "BackendVnetAllowRule",
-              "priority": "1",
-              "tag": "Default",
-              "action": "Allow",
-              "vnetSubnetResourceId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnetName'))]",
-              "description": "We want to allow traffic from the backend subnet"
-            },
-            {
-              "name": "ApimVnetAllowRule",
-              "priority": "2",
-              "tag": "Default",
-              "action": "Allow",
-              "vnetSubnetResourceId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('apimSubnetName'))]",
-              "description": "We want to allow traffic from the APIM subnet"
-            }
-          ]
+          "connectionStrings": "[variables('connectionstrings')]"
         }
       },
       "resources": [
