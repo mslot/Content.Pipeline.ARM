@@ -159,6 +159,11 @@
                 "name": "[variables('vnetBackend').apim.name]",
                 "properties": {
                   "addressPrefix": "[variables('vnetBackend').apim.subnetPrefix]",
+                  "serviceEndpoints": [
+                    {
+                      "service": "Microsoft.Web"
+                    }
+                  ],
                   "delegations": [
                     {
                       "name": "delegation",

@@ -59,7 +59,7 @@
             },
             {
               "name": "ApimVnetAllowRule",
-              "priority": "1",
+              "priority": "2",
               "tag": "Default",
               "action": "Allow",
               "vnetSubnetResourceId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('apimSubnetName'))]",
