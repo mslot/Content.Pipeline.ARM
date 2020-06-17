@@ -13,6 +13,12 @@
     },
     "appsettings": {
       "type": "array"
+    },
+    "vnetName": {
+      "type": "string"
+    },
+    "subnetName": {
+      "type": "string"
     }
   },
   "variables": {
@@ -40,7 +46,21 @@
           "appSettings": "[variables('finalAppsettings')]",
           "connectionStrings": "[variables('connectionstrings')]"
         }
-      }
+      },
+      "resources": [
+        {
+          "name": "virtualNetwork",
+          "type": "networkConfig",
+          "apiVersion": "2019-08-01",
+          "dependsOn": [
+            "[resourceId('Microsoft.Web/sites', parameters('webappName'))]"
+          ],
+          "properties": {
+            "subnetResourceId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnetName'))]",
+            "swiftSupported": true
+          }
+        }
+      ]
     }
   ],
   "outputs": {

@@ -111,6 +111,8 @@
           "webappName": { "value": "[variables('webappName')]" },
           "farmResourceId": { "value": "[reference('serverfarmDeploy').outputs.resourceId.value]" },
           "connectionstring": { "value": "[reference('databaseDeploy').outputs.connectionstring.value]" },
+          "vnetName": { "value": "[variables('vnetBackend').name]" },
+          "subnetName": { "value": "[variables('vnetBackend').backend.name]" },
           "appsettings": {
             "value": [
             ]
@@ -149,7 +151,8 @@
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
-          "farmName": { "value": "[variables('serverfarmName')]" }
+          "farmName": { "value": "[variables('serverfarmName')]" },
+          "farmSkuName": { "value": "S1" }
         }
       }
     }
