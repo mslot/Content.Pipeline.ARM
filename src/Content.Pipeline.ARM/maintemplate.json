@@ -37,13 +37,12 @@
     "serverfarmName": "farm-dev",
     "vnetBackend": {
       "name": "[concat('vnet-',parameters('appName'),'-internal',parameters('env'))]",
+      "addressPrefix": "10.0.0.0/16",
       "backend": {
-        "addressPrefix": "10.0.0.0/16",
         "subnetPrefix": "10.0.0.0/24",
         "name": "backend"
       },
       "apim": {
-        "addressPrefix": "10.0.0.0/16",
         "subnetPrefix": "10.0.1.0/24",
         "name": "apim"
       }
@@ -61,7 +60,7 @@
         },
         "parameters": {
           "name": { "value": "[variables('vnetBackend').name]" },
-          "addressPrefixs": { "value": [ "[variables('vnetBackend').backend.addressPrefix]", "[variables('vnetBackend').apim.addressPrefix]" ] },
+          "addressPrefixs": { "value": [ "[variables('vnetBackend').addressPrefix]" ] },
           "subnets": {
             "value": [
               {
