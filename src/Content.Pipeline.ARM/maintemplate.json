@@ -27,7 +27,7 @@
     "appName": {
       "type": "string"
     },
-    "ownerMail": {
+    "ownerEmail": {
       "type": "string"
     },
     "ownerName": {
@@ -47,7 +47,7 @@
       "subnetName": "[variables('vnetBackend').apim.name]",
       "sku": "Developer",
       "skuCount": "1",
-      "publisherEmail": "[parameters('ownerMail')]",
+      "publisherEmail": "[parameters('ownerEmail')]",
       "publisherName": "[parameters('ownerName')]",
       "mode": "Internal"
     },
