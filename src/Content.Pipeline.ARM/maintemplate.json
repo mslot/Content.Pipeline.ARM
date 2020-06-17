@@ -61,7 +61,7 @@
         },
         "parameters": {
           "name": { "value": "[variables('vnetBackend').name]" },
-          "addressPrefixs": { "value": [ "[variables('vnetBackend').backend.addressPrefix]", "[variables('vnetBackend').apim.addressPrefix]" ] },
+          "addressPrefixs": { "value": [ "[variables('vnetBackend').backend.addressPrefix]" ] },
           "subnets": {
             "value": [
               {
