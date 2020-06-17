@@ -26,6 +26,12 @@
     },
     "appName": {
       "type": "string"
+    },
+    "ownerMail": {
+      "type": "string"
+    },
+    "ownerName": {
+      "type": "string"
     }
   },
   "variables": {
@@ -35,6 +41,16 @@
     "sqlServerName": "[concat(parameters('sqlServerName'),'-',parameters('env'))]",
     "webappName": "webapp-testapi-dev",
     "serverfarmName": "farm-dev",
+    "apim": {
+      "name": "[concat('apim-',parameters('appName'),'-internal',parameters('env'))]",
+      "vnetName": "[variables('vnetBackend').name]",
+      "subnetName": "[variables('vnetBackend').apim.name]",
+      "sku": "Developer",
+      "skuCount": "1",
+      "publisherEmail": "[parameters('ownerMail')]",
+      "publisherName": "[parameters('ownerName')]",
+      "mode": "Internal"
+    },
     "vnetBackend": {
       "name": "[concat('vnet-',parameters('appName'),'-internal',parameters('env'))]",
       "addressPrefix": "10.0.0.0/16",
@@ -49,6 +65,29 @@
     }
   },
   "resources": [
+    {
+      "apiVersion": "2018-05-01",
+      "dependsOn": [ "vnetDeploy" ],
+      "name": "apimDeploy",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[uri(deployment().properties.templateLink.uri,concat('Modules/','apim.json',parameters('storageSasToken')))]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "name": { "value": "[variables('apim').name]" },
+          "vnetName": { "value": "[variables('apim').vnetName]" },
+          "subnetName": { "value": "[variables('apim').subnetName]" },
+          "sku": { "value": "[variables('apim').sku]" },
+          "skuCount": { "value": "[variables('apim').skuCount]" },
+          "publisherEmail": { "value": "[variables('apim').publisherEmail]" },
+          "publisherName": { "value": "[variables('apim').publisherName]" },
+          "mode": { "value": "[variables('apim').mode]" }
+        }
+      },
+      "type": "Microsoft.Resources/deployments"
+    },
     {
       "apiVersion": "2018-05-01",
       "name": "vnetDeploy",
