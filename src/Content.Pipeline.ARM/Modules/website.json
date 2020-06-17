@@ -19,6 +19,9 @@
     },
     "subnetName": {
       "type": "string"
+    },
+    "apimSubnetName": {
+      "type": "string"
     }
   },
   "variables": {
@@ -52,7 +55,15 @@
               "tag": "Default",
               "action": "Allow",
               "vnetSubnetResourceId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnetName'))]",
-              "description": "We only want to allow traffic from the VNET"
+              "description": "We want to allow traffic from the VNET"
+            },
+            {
+              "name": "ApimVnetAllowRule",
+              "priority": "1",
+              "tag": "Default",
+              "action": "Allow",
+              "vnetSubnetResourceId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('apimSubnetName'))]",
+              "description": "We want to allow traffic from the APIM subnet"
             }
           ]
         }

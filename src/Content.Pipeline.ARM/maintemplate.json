@@ -190,6 +190,7 @@
           "farmResourceId": { "value": "[reference('serverfarmDeploy').outputs.resourceId.value]" },
           "connectionstring": { "value": "[reference('databaseDeploy').outputs.connectionstring.value]" },
           "vnetName": { "value": "[variables('vnetBackend').name]" },
+          "apimSubnetName": { "value": "[variables('apim').subnetName]" },
           "subnetName": { "value": "[variables('vnetBackend').backend.name]" },
           "appsettings": {
             "value": [
