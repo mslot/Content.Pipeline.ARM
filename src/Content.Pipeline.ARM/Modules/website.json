@@ -49,6 +49,7 @@
             {
               "name": "BackendVnetAllowRule",
               "priority": "1",
+              "tag": "Default",
               "action": "Allow",
               "vnetSubnetResoruceId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnetName'))]",
               "description": "We only want to allow traffic from the VNET"
