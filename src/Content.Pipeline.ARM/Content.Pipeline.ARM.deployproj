@@ -34,6 +34,7 @@
     <None Include="Modules\database.json" />
     <None Include="Modules\serverfarm.json" />
     <None Include="Modules\website.json" />
+    <None Include="Modules\vnet.json" />
   </ItemGroup>
   <Target Name="GetReferenceAssemblyPaths" />
 </Project>
