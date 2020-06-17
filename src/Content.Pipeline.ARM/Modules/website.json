@@ -39,7 +39,7 @@
       "name": "[parameters('webappName')]",
       "type": "Microsoft.Web/sites",
       "location": "[resourceGroup().location]",
-      "apiVersion": "2015-08-01",
+      "apiVersion": "2018-02-01",
       "properties": {
         "serverFarmId": "[parameters('farmResourceId')]",
         "siteConfig": {
