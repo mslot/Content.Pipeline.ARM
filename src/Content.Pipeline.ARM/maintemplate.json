@@ -39,8 +39,8 @@
     "azuretemplatestorageurl": "[parameters('storageUri')]",
     "sqlServerDatabaseName": "[concat(parameters('sqlServerDatabaseName'),'-',parameters('env'))]",
     "sqlServerName": "[concat(parameters('sqlServerName'),'-',parameters('env'))]",
-    "webappName": "webapp-testapi-dev",
-    "serverfarmName": "farm-dev",
+    "webappName": "[concat('webapp-',parameters('appName'),'-creator-api-',parameters('env'))]",
+    "serverfarmName": "[concat('farm-',parameters('appName'),'-main-api-',parameters('env'))]",
     "apim": {
       "name": "[concat('apim-',parameters('appName'),'-internal',parameters('env'))]",
       "vnetName": "[variables('vnetBackend').name]",
