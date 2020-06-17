@@ -26,6 +26,9 @@
     "mode": {
       "type": "string",
       "defaultValue": "External"
+    },
+    "env": {
+      "type": "string"
     }
   },
   "variables": {
@@ -48,7 +51,22 @@
         "virtualNetworkConfiguration": {
           "subnetResourceId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnetName'))]"
         }
-      }
+      },
+      "resources": [
+        {
+          "apiVersion": "2017-03-01",
+          "type": "apis",
+          "name": "CreatorWebApi",
+          "dependsOn": [
+            "[concat('Microsoft.ApiManagement/service/', parameters('name'))]"
+          ],
+          "properties": {
+            "contentFormat": "SwaggerLinkJson",
+            "contentValue": "[concat('https://webapp-contentpipeline-creator-api-',parameters('env'),'.azurewebsites.net','/swagger/v1/swagger.json')]",
+            "path": "creator"
+          }
+        }
+      ]
     }
   ],
   "outputs": {

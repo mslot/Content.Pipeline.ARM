@@ -83,7 +83,8 @@
           "skuCount": { "value": "[variables('apim').skuCount]" },
           "publisherEmail": { "value": "[variables('apim').publisherEmail]" },
           "publisherName": { "value": "[variables('apim').publisherName]" },
-          "mode": { "value": "[variables('apim').mode]" }
+          "mode": { "value": "[variables('apim').mode]" },
+          "env": { "value": "[parameters('env')]" }
         }
       },
       "type": "Microsoft.Resources/deployments"
