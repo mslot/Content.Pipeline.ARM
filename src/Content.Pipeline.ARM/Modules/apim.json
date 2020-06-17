@@ -61,6 +61,7 @@
             "[concat('Microsoft.ApiManagement/service/', parameters('name'))]"
           ],
           "properties": {
+            "displayName": "Creator API",
             "contentFormat": "SwaggerLinkJson",
             "contentValue": "[concat('https://webapp-contentpipeline-creator-api-',parameters('env'),'.azurewebsites.net','/swagger/v1/swagger.json')]",
             "path": "creator",
