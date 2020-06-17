@@ -51,7 +51,7 @@
       "skuCount": "1",
       "publisherEmail": "[parameters('ownerEmail')]",
       "publisherName": "[parameters('ownerName')]",
-      "mode": "External"
+      "mode": "Internal"
     },
     "vnetBackend": {
       "name": "[concat('vnet-',parameters('appName'),'-internal',parameters('env'))]",
@@ -99,7 +99,7 @@
     },
     {
       "apiVersion": "2018-05-01",
-      "dependsOn": [ "vnetDeploy" ],
+      "dependsOn": [ "vnetDeploy", "websiteDeploy" ],
       "name": "apimDeploy",
       "properties": {
         "mode": "Incremental",
