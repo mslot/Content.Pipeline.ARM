@@ -140,6 +140,9 @@
                 "name": "[variables('vnetBackend').backend.name]",
                 "properties": {
                   "addressPrefix": "[variables('vnetBackend').backend.subnetPrefix]",
+                  "networkSecurityGroup": {
+                    "id": "[reference('nsgBackendDeploy').outputs.resourceId.value]"
+                  },
                   "serviceEndpoints": [
                     {
                       "service": "Microsoft.Web"
@@ -159,6 +162,9 @@
                 "name": "[variables('vnetBackend').apim.name]",
                 "properties": {
                   "addressPrefix": "[variables('vnetBackend').apim.subnetPrefix]",
+                  "networkSecurityGroup": {
+                    "id": "[reference('nsgApimDeploy').outputs.resourceId.value]"
+                  },
                   "serviceEndpoints": [
                     {
                       "service": "Microsoft.Web"
