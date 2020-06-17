@@ -19,6 +19,9 @@
     },
     "subnetName": {
       "type": "string"
+    },
+    "vnetRestrictionResourceId": {
+      "type": "string"
     }
   },
   "variables": {
@@ -44,7 +47,15 @@
         "serverFarmId": "[parameters('farmResourceId')]",
         "siteConfig": {
           "appSettings": "[variables('finalAppsettings')]",
-          "connectionStrings": "[variables('connectionstrings')]"
+          "connectionStrings": "[variables('connectionstrings')]",
+          "ipSecurityRestrictions": [
+            {
+              "name": "BackendVnetAllowRule",
+              "priority": "1",
+              "action": "Allow",
+              "vnetSubnetResoruceId": "[parameters('vnetRestrictionResourceId')]"
+            }
+          ]
         }
       },
       "resources": [
