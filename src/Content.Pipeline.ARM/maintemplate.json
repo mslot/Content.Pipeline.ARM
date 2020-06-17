@@ -67,6 +67,11 @@
                 "name": "[variables('vnetBackend').backend.name]",
                 "properties": {
                   "addressPrefix": "[variables('vnetBackend').backend.subnetPrefix]",
+                  "serviceEndpoints": [
+                    {
+                      "service": "Microsoft/Web"
+                    }
+                  ],
                   "delegations": [
                     {
                       "name": "delegation",
