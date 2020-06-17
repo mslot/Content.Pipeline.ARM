@@ -114,7 +114,6 @@
         },
         "parameters": {
           "webappName": { "value": "[variables('webappName')]" },
-          "vnetRestrictionResourceId": { "value": "[reference('vnetDeploy').outputs.resourceId.value]" },
           "farmResourceId": { "value": "[reference('serverfarmDeploy').outputs.resourceId.value]" },
           "connectionstring": { "value": "[reference('databaseDeploy').outputs.connectionstring.value]" },
           "vnetName": { "value": "[variables('vnetBackend').name]" },
