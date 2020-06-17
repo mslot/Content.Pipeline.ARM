@@ -69,7 +69,7 @@
                   "addressPrefix": "[variables('vnetBackend').backend.subnetPrefix]",
                   "serviceEndpoints": [
                     {
-                      "service": "Microsoft/Web"
+                      "service": "Microsoft.Web"
                     }
                   ],
                   "delegations": [
