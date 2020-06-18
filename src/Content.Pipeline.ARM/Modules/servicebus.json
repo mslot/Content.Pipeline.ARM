@@ -12,7 +12,7 @@
         "Standard",
         "Premium"
       ],
-      "defaultValue": "Basic"
+      "defaultValue": "Standard"
     }
   },
   "variables": {
