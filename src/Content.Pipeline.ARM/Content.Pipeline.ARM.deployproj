@@ -38,6 +38,7 @@
     <None Include="Modules\servicebus.json" />
     <None Include="Modules\storage.json" />
     <None Include="Modules\azfunc.json" />
+    <None Include="Modules\eventgrid.json" />
     <None Include="Modules\website.json" />
     <None Include="Modules\vnet.json" />
   </ItemGroup>

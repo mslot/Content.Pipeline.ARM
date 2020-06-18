@@ -35,6 +35,7 @@
     }
   },
   "variables": {
+    "contentPipelineEventGridName": "[concat('eg-',parameters('appName'),'-general-',parameters('env'))]",
     "azuretemplatestoragename": "[concat('azuretemplatestorage',parameters('env'))]",
     "azuretemplatestorageurl": "[parameters('storageUri')]",
     "sqlServerDatabaseName": "[concat(parameters('sqlServerDatabaseName'),'-',parameters('env'))]",
@@ -91,8 +92,23 @@
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2018-05-01",
+      "name": "contentPipelineEventGridDeploy",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[uri(deployment().properties.templateLink.uri,concat('Modules/','eventgrid.json',parameters('storageSasToken')))]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "name": { "value": "[variables('contentPipelineEventGridName')]" }
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2018-05-01",
       "name": "[concat('contentPipelineFunctionsDeploy-',variables('pipelineFunctions')[copyIndex()].deployName)]",
-      "dependsOn": [ "contentPipelineStorageDeploy", "contentPipelinefarmDeploy", "serviceBusDeploy", "databaseDeploy" ],
+      "dependsOn": [ "contentPipelineStorageDeploy", "contentPipelinefarmDeploy", "serviceBusDeploy", "databaseDeploy", "contentPipelineEventGridDeploy" ],
       "copy": {
         "name": "azfuncCopy",
         "count": "[length(variables('pipelineFunctions'))]"
@@ -117,6 +133,14 @@
               {
                 "name": "Servicebus:ServicebusDefaultSharedAccessPolicyPrimaryKey",
                 "value": "[reference('serviceBusDeploy').outputs.defaultSharedAccessPolicyPrimaryKey.value]"
+              },
+              {
+                "name": "EventGrid:TopicUri",
+                "value": "[reference('contentPipelineEventGridDeploy').outputs.endpoint.value]"
+              },
+              {
+                "name": "EventGrid:TopicKey",
+                "value": "[reference('contentPipelineEventGridDeploy').outputs.key.value]"
               }
             ]
           }
