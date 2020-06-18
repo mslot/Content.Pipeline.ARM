@@ -87,7 +87,7 @@
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2018-05-01",
-      "name": "contentPipelineFunctionsDeploy",
+      "name": "[concat('contentPipelineFunctionsDeploy-',variables('pipelineFunctions')[copyIndex()].name)]",
       "dependsOn": [ "contentPipelineStorageDeploy", "contentPipelinefarmDeploy", "serviceBusDeploy", "databaseDeploy" ],
       "copy": {
         "name": "azfuncCopy",
