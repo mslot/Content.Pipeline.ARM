@@ -84,21 +84,6 @@
     },
     {
       "apiVersion": "2018-05-01",
-      "name": "nsgApimDeploy",
-      "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-          "uri": "[uri(deployment().properties.templateLink.uri,concat('Modules/','nsg.json',parameters('storageSasToken')))]",
-          "contentVersion": "1.0.0.0"
-        },
-        "parameters": {
-          "name": { "value": "[variables('nsgApimName')]" }
-        }
-      },
-      "type": "Microsoft.Resources/deployments"
-    },
-    {
-      "apiVersion": "2018-05-01",
       "dependsOn": [ "vnetDeploy", "websiteDeploy" ],
       "name": "apimDeploy",
       "properties": {
@@ -124,7 +109,7 @@
     {
       "apiVersion": "2018-05-01",
       "name": "vnetDeploy",
-      "dependsOn": [ "nsgBackendDeploy","nsgApimDeploy" ],
+      "dependsOn": [ "nsgBackendDeploy" ],
       "properties": {
         "mode": "Incremental",
         "templateLink": {
@@ -163,7 +148,7 @@
                 "properties": {
                   "addressPrefix": "[variables('vnetBackend').apim.subnetPrefix]",
                   "networkSecurityGroup": {
-                    "id": "[reference('nsgApimDeploy').outputs.resourceId.value]"
+                    "id": "[reference('nsgBackendDeploy').outputs.resourceId.value]"
                   },
                   "serviceEndpoints": [
                     {
