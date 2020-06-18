@@ -67,6 +67,41 @@
             "path": "creator",
             "protocols": [ "https" ]
           }
+        },
+        {
+          "apiVersion": "2017-03-01",
+          "type": "apis",
+          "name": "creatorApi",
+          "dependsOn": [
+            "[concat('Microsoft.ApiManagement/service/', parameters('name'))]"
+          ],
+          "properties": {
+            "displayName": "Creator API",
+            "description": "Creator API",
+            "serviceUrl": "[concat('https://webapp-contentpipeline-creator-api-',parameters('env'),'.azurewebsites.net')]",
+            "path": "creator",
+            "protocols": [
+              "HTTPS"
+            ]
+          },
+          "resources": [
+            {
+              "apiVersion": "2017-03-01",
+              "type": "operations",
+              "name": "ping",
+              "dependsOn": [
+                "[concat('Microsoft.ApiManagement/service/', parameters('name'), '/apis/creatorApi')]"
+              ],
+              "properties": {
+                "displayName": "PING",
+                "method": "GET",
+                "urlTemplate": "/api/metadata/ping",
+                "description": "Test call to metadata API"
+              },
+              "resources": [
+              ]
+            }
+          ]
         }
       ]
     }
