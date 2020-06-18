@@ -28,7 +28,7 @@
   "outputs": {
     "connectionstring": {
       "type": "string",
-      "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('name'), ';AccountKey=', listKeys(parameters('name'),'2019-06-01').key1)]"
+      "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('name'), ';AccountKey=', listKeys(parameters('name'),'2019-06-01').keys[0].value)]"
     }
   }
 }
