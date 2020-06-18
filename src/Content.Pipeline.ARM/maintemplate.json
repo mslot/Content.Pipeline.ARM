@@ -87,8 +87,7 @@
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
-          "farmName": { "value": "[variables('contentPipelineStorageName')]" },
-          "farmSkuName": { "value": "Y1" }
+          "name": { "value": "[variables('contentPipelineStorageName')]" }
         }
       }
     },

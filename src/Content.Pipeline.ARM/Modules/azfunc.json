@@ -1,0 +1,89 @@
+﻿{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "farmResourceId": {
+      "type": "string"
+    },
+    "connectionstring": {
+      "type": "string"
+    },
+    "webappName": {
+      "type": "string"
+    },
+    "appsettings": {
+      "type": "array"
+    },
+    "vnetName": {
+      "type": "string"
+    },
+    "subnetName": {
+      "type": "string"
+    },
+    "apimSubnetName": {
+      "type": "string"
+    }
+  },
+  "variables": {
+    "builtinAppsettings": [
+    ],
+    "finalAppsettings": "[union(variables('builtinAppsettings'),parameters('appsettings'))]",
+    "connectionstrings": [
+      {
+        "name": "conn",
+        "connectionString": "[parameters('connectionstring')]",
+        "type": "SQLAzure"
+      }
+    ]
+
+  },
+  "resources": [
+    {
+      "name": "[parameters('webappName')]",
+      "type": "Microsoft.Web/sites",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2018-02-01",
+      "properties": {
+        "serverFarmId": "[parameters('farmResourceId')]",
+        "siteConfig": {
+          "appSettings": "[variables('finalAppsettings')]",
+          "connectionStrings": "[variables('connectionstrings')]"
+        }
+      },
+      "resources": [
+        {
+          "name": "virtualNetwork",
+          "type": "networkConfig",
+          "apiVersion": "2019-08-01",
+          "dependsOn": [
+            "[resourceId('Microsoft.Web/sites', parameters('webappName'))]"
+          ],
+          "properties": {
+            "subnetResourceId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnetName'))]",
+            "swiftSupported": true,
+            "ipSecurityRestrictions": [
+              {
+                "name": "BackendVnetAllowRule",
+                "priority": "1",
+                "tag": "Default",
+                "action": "Allow",
+                "vnetSubnetResourceId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnetName'))]",
+                "description": "We want to allow traffic from the backend subnet"
+              },
+              {
+                "name": "ApimVnetAllowRule",
+                "priority": "2",
+                "tag": "Default",
+                "action": "Allow",
+                "vnetSubnetResourceId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('apimSubnetName'))]",
+                "description": "We want to allow traffic from the APIM subnet"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "outputs": {
+  }
+}

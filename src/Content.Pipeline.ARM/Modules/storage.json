@@ -5,12 +5,6 @@
     "name": {
       "type": "string"
     },
-    "addressPrefixs": {
-      "type": "array"
-    },
-    "subnets": {
-      "type": "array"
-    },
     "storageAccountType": {
       "type": "string",
       "defaultValue": "Standard_LRS"
