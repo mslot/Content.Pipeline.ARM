@@ -32,6 +32,72 @@
       "resources": [
         {
           "apiVersion": "[variables('sbVersion')]",
+          "name": "notifier-topic",
+          "type": "Topics",
+          "dependsOn": [
+            "[concat('Microsoft.ServiceBus/namespaces/', parameters('name'))]"
+          ],
+          "properties": {
+            "path": "notifier-topic"
+          },
+          "resources": [
+            {
+              "apiVersion": "[variables('sbVersion')]",
+              "name": "NotifierSubscription",
+              "type": "Subscriptions",
+              "dependsOn": [
+                "notifier-topic"
+              ],
+              "properties": {}
+            }
+          ]
+        },
+        {
+          "apiVersion": "[variables('sbVersion')]",
+          "name": "cachebuster-topic",
+          "type": "Topics",
+          "dependsOn": [
+            "[concat('Microsoft.ServiceBus/namespaces/', parameters('name'))]"
+          ],
+          "properties": {
+            "path": "cachebuster-topic"
+          },
+          "resources": [
+            {
+              "apiVersion": "[variables('sbVersion')]",
+              "name": "CacheBusterSubscription",
+              "type": "Subscriptions",
+              "dependsOn": [
+                "cachebuster-topic"
+              ],
+              "properties": {}
+            }
+          ]
+        },
+        {
+          "apiVersion": "[variables('sbVersion')]",
+          "name": "qualifier-topic",
+          "type": "Topics",
+          "dependsOn": [
+            "[concat('Microsoft.ServiceBus/namespaces/', parameters('name'))]"
+          ],
+          "properties": {
+            "path": "qualifier-topic"
+          },
+          "resources": [
+            {
+              "apiVersion": "[variables('sbVersion')]",
+              "name": "QualifierSubscription",
+              "type": "Subscriptions",
+              "dependsOn": [
+                "qualifier-topic"
+              ],
+              "properties": {}
+            }
+          ]
+        },
+        {
+          "apiVersion": "[variables('sbVersion')]",
           "name": "metadata-topic",
           "type": "Topics",
           "dependsOn": [
