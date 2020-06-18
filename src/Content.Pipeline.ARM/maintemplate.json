@@ -51,7 +51,7 @@
       "skuCount": "1",
       "publisherEmail": "[parameters('ownerEmail')]",
       "publisherName": "[parameters('ownerName')]",
-      "mode": "Internal"
+      "mode": "External"
     },
     "vnetBackend": {
       "name": "[concat('vnet-',parameters('appName'),'-internal',parameters('env'))]",
