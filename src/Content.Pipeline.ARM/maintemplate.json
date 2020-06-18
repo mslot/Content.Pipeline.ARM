@@ -256,7 +256,7 @@
     },
     {
       "apiVersion": "2018-05-01",
-      "dependsOn": [ "databaseDeploy", "serverfarmDeploy", "vnetDeploy" ],
+      "dependsOn": [ "databaseDeploy", "serverfarmDeploy", "vnetDeploy", "serviceBusDeploy" ],
       "name": "websiteDeploy",
       "properties": {
         "mode": "Incremental",
@@ -273,6 +273,14 @@
           "subnetName": { "value": "[variables('vnetBackend').backend.name]" },
           "appsettings": {
             "value": [
+              {
+                "name": "Servicebus:ConnectionString",
+                "value": "[reference('serviceBusDeploy').outputs.connectionstring.value]"
+              },
+              {
+                "name": "Servicebus:DefaultSharedAccessPolicyPrimaryKey",
+                "value": "[reference('serviceBusDeploy').outputs.defaultSharedAccessPolicyPrimaryKey.value]"
+              }
             ]
           }
         }
