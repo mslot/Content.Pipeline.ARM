@@ -48,8 +48,7 @@
     "contentPipelinefarmName": "[concat('farm-',parameters('appName'),'-pipeline-',parameters('env'))]",
     "pipelineFunctions": [
       {
-        "name": "[concat('az-',parameters('appName'),'-metadataprocessing-',parameters('env'))]",
-        "farm": "[variables('contentPipelinefarmName')]"
+        "name": "[concat('az-',parameters('appName'),'-metadataprocessing-',parameters('env'))]"
       }
     ],
     "apim": {
@@ -92,7 +91,7 @@
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
-          "farmResourceId": { "value": "[variables('pipelineFunctions')[copyIndex()].farm]" },
+          "farmResourceId": { "value": "[reference('contentPipelinefarmDeploy').outputs.resourceId.value]" },
           "storageConnectionString": { "value": "[reference('contentPipelineStorageDeploy').outputs.connectionstring.value]" },
           "databaseConnectionstring": { "value": "[reference('databaseDeploy').outputs.connectionstring.value]" },
           "azfunName": { "value": "[variables('pipelineFunctions')[copyIndex()].name]" },
