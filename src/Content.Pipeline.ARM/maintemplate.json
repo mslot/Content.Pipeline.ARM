@@ -49,6 +49,15 @@
     "pipelineFunctions": [
       {
         "name": "[concat('az-',parameters('appName'),'-metadataprocessing-',parameters('env'))]"
+      },
+      {
+        "name": "[concat('az-',parameters('appName'),'-qualifier-',parameters('env'))]"
+      },
+      {
+        "name": "[concat('az-',parameters('appName'),'-cachebuster-',parameters('env'))]"
+      },
+      {
+        "name": "[concat('az-',parameters('appName'),'-notifier-',parameters('env'))]"
       }
     ],
     "apim": {
