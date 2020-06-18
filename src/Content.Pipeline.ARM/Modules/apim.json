@@ -56,21 +56,6 @@
         {
           "apiVersion": "2017-03-01",
           "type": "apis",
-          "name": "CreatorWebApi",
-          "dependsOn": [
-            "[concat('Microsoft.ApiManagement/service/', parameters('name'))]"
-          ],
-          "properties": {
-            "displayName": "Creator API",
-            "contentFormat": "SwaggerLinkJson",
-            "contentValue": "[concat('https://webapp-contentpipeline-creator-api-',parameters('env'),'.azurewebsites.net','/swagger/v1/swagger.json')]",
-            "path": "creator",
-            "protocols": [ "https" ]
-          }
-        },
-        {
-          "apiVersion": "2017-03-01",
-          "type": "apis",
           "name": "creatorApi",
           "dependsOn": [
             "[concat('Microsoft.ApiManagement/service/', parameters('name'))]"
