@@ -79,7 +79,7 @@
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2018-05-01",
       "name": "contentPipelineFunctionsDeploy",
-      "dependsOn": [ "contentPipelineStorageDeploy", "contentPipelinefarmDeploy", "serviceBusDeploy","databaseDeploy" ],
+      "dependsOn": [ "contentPipelineStorageDeploy", "contentPipelinefarmDeploy", "serviceBusDeploy", "databaseDeploy" ],
       "copy": {
         "name": "azfuncCopy",
         "count": "[length(variables('pipelineFunctions'))]"
@@ -95,12 +95,18 @@
           "storageConnectionString": { "value": "[reference('contentPipelineStorageDeploy').outputs.connectionstring.value]" },
           "databaseConnectionstring": { "value": "[reference('databaseDeploy').outputs.connectionstring.value]" },
           "azfunName": { "value": "[variables('pipelineFunctions')[copyIndex()].name]" },
-          "appsettings": { "value": [
-            {
-              "ServicebusConnectionString": "[reference('serviceBusDeploy').outputs.connectionstring.value]",
-              "ServicebusDefaultSharedAccessPolicyPrimaryKey": "[reference('serviceBusDeploy').outputs.defaultSharedAccessPolicyPrimaryKey.value]"
-            }
-                           ] }
+          "appsettings": {
+            "value": [
+              {
+                "name": "ServicebusConnectionString",
+                "value": "[reference('serviceBusDeploy').outputs.connectionstring.value]"
+              },
+              {
+                "name": "ServicebusDefaultSharedAccessPolicyPrimaryKey",
+                "value": "[reference('serviceBusDeploy').outputs.defaultSharedAccessPolicyPrimaryKey.value]"
+              }
+            ]
+          }
         }
       }
     },

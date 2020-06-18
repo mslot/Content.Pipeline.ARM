@@ -36,7 +36,6 @@
     <None Include="Modules\apim.json" />
     <None Include="Modules\nsg.json" />
     <None Include="Modules\servicebus.json" />
-    <None Include="Modules\azfun.json" />
     <None Include="Modules\storage.json" />
     <None Include="Modules\azfunc.json" />
     <None Include="Modules\website.json" />
