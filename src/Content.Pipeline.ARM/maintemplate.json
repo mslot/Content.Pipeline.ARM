@@ -98,11 +98,11 @@
           "appsettings": {
             "value": [
               {
-                "name": "ServicebusConnectionString",
+                "name": "Servicebus:ServicebusConnectionString",
                 "value": "[reference('serviceBusDeploy').outputs.connectionstring.value]"
               },
               {
-                "name": "ServicebusDefaultSharedAccessPolicyPrimaryKey",
+                "name": "Servicebus:ServicebusDefaultSharedAccessPolicyPrimaryKey",
                 "value": "[reference('serviceBusDeploy').outputs.defaultSharedAccessPolicyPrimaryKey.value]"
               }
             ]
