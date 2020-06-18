@@ -32,11 +32,11 @@
     }
   ],
   "outputs": {
-    "NamespaceDefaultConnectionString": {
+    "connectionstring": {
       "type": "string",
       "value": "[listkeys(variables('defaultAuthRuleResourceId'), variables('sbVersion')).primaryConnectionString]"
     },
-    "DefaultSharedAccessPolicyPrimaryKey": {
+    "defaultSharedAccessPolicyPrimaryKey": {
       "type": "string",
       "value": "[listkeys(variables('defaultAuthRuleResourceId'), variables('sbVersion')).primaryKey]"
     }
