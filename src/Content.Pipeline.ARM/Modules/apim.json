@@ -85,6 +85,38 @@
               },
               "resources": [
               ]
+            },
+            {
+              "apiVersion": "2017-03-01",
+              "type": "operations",
+              "name": "theme",
+              "dependsOn": [
+                "[concat('Microsoft.ApiManagement/service/', parameters('name'), '/apis/creatorApi')]"
+              ],
+              "properties": {
+                "displayName": "/api/theme/{id}",
+                "method": "PUT",
+                "urlTemplate": "/api/theme/{id}",
+                "description": "UpSert of theme metadata"
+              },
+              "resources": [
+              ]
+            },
+            {
+              "apiVersion": "2017-03-01",
+              "type": "operations",
+              "name": "basic",
+              "dependsOn": [
+                "[concat('Microsoft.ApiManagement/service/', parameters('name'), '/apis/creatorApi')]"
+              ],
+              "properties": {
+                "displayName": "/api/metadata/basic",
+                "method": "PUT",
+                "urlTemplate": "/api/metadata/basic",
+                "description": "UpSert of basic metadata"
+              },
+              "resources": [
+              ]
             }
           ]
         }
