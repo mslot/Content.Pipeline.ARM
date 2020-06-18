@@ -48,16 +48,20 @@
     "contentPipelinefarmName": "[concat('farm-',parameters('appName'),'-pipeline-',parameters('env'))]",
     "pipelineFunctions": [
       {
-        "name": "[concat('az-',parameters('appName'),'-metadataprocessing-',parameters('env'))]"
+        "name": "[concat('az-',parameters('appName'),'-metadataprocessing-',parameters('env'))]",
+        "deployName": "metadataprocessingFunctionDeploy"
       },
       {
-        "name": "[concat('az-',parameters('appName'),'-qualifier-',parameters('env'))]"
+        "name": "[concat('az-',parameters('appName'),'-qualifier-',parameters('env'))]",
+        "deployName": "qualifierFunctionDeploy"
       },
       {
-        "name": "[concat('az-',parameters('appName'),'-cachebuster-',parameters('env'))]"
+        "name": "[concat('az-',parameters('appName'),'-cachebuster-',parameters('env'))]",
+        "deployName": "cachebusterFunctionDeploy"
       },
       {
-        "name": "[concat('az-',parameters('appName'),'-notifier-',parameters('env'))]"
+        "name": "[concat('az-',parameters('appName'),'-notifier-',parameters('env'))]",
+        "deployName": "notifierFunctionDeploy"
       }
     ],
     "apim": {
@@ -87,7 +91,7 @@
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2018-05-01",
-      "name": "[concat('contentPipelineFunctionsDeploy-',variables('pipelineFunctions')[copyIndex()].name)]",
+      "name": "[concat('contentPipelineFunctionsDeploy-',variables('pipelineFunctions')[copyIndex()].deployName)]",
       "dependsOn": [ "contentPipelineStorageDeploy", "contentPipelinefarmDeploy", "serviceBusDeploy", "databaseDeploy" ],
       "copy": {
         "name": "azfuncCopy",
