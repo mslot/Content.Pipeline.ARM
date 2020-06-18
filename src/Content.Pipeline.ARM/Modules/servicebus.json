@@ -28,7 +28,31 @@
       "location": "[resourceGroup().location]",
       "sku": {
         "name": "[parameters('sku')]"
-      }
+      },
+      "resources": [
+        {
+          "apiVersion": "[variables('sbVersion')]",
+          "name": "metadata-topic",
+          "type": "Topics",
+          "dependsOn": [
+            "[concat('Microsoft.ServiceBus/namespaces/', parameters('name'))]"
+          ],
+          "properties": {
+            "path": "metadata-topic"
+          },
+          "resources": [
+            {
+              "apiVersion": "[variables('sbVersion')]",
+              "name": "MetadataProcessingFunctionSubscription",
+              "type": "Subscriptions",
+              "dependsOn": [
+                "metadata-topic"
+              ],
+              "properties": {}
+            }
+          ]
+        }
+      ]
     }
   ],
   "outputs": {
