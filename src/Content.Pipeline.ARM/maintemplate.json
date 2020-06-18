@@ -40,6 +40,7 @@
     "sqlServerDatabaseName": "[concat(parameters('sqlServerDatabaseName'),'-',parameters('env'))]",
     "sqlServerName": "[concat(parameters('sqlServerName'),'-',parameters('env'))]",
     "webappName": "[concat('webapp-',parameters('appName'),'-creator-api-',parameters('env'))]",
+    "servicebusName": "[concat('sb-',parameters('appName'),'-',parameters('env'))]",
     "nsgBackendName": "[concat('nsg-',parameters('appName'),'-backend-',parameters('env'))]",
     "nsgApimName": "[concat('nsg-',parameters('appName'),'-apim-',parameters('env'))]",
     "serverfarmName": "[concat('farm-',parameters('appName'),'-main-api-',parameters('env'))]",
@@ -67,6 +68,21 @@
     }
   },
   "resources": [
+    {
+      "apiVersion": "2018-05-01",
+      "name": "serviceBusDeploy",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[uri(deployment().properties.templateLink.uri,concat('Modules/','servicebus.json',parameters('storageSasToken')))]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "name": { "value": "[variables('servicebusName')]" }
+        }
+      },
+      "type": "Microsoft.Resources/deployments"
+    },
     {
       "apiVersion": "2018-05-01",
       "name": "nsgBackendDeploy",
