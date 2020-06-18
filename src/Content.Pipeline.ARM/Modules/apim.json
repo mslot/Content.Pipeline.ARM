@@ -97,7 +97,15 @@
                 "displayName": "/api/theme/{id}",
                 "method": "PUT",
                 "urlTemplate": "/api/theme/{id}",
-                "description": "UpSert of theme metadata"
+                "description": "UpSert of theme metadata",
+                "templateParameters": [
+                  {
+                    "name": "id",
+                    "description": "the id of the theme",
+                    "type": "string",
+                    "required": true
+                  }
+                ]
               },
               "resources": [
               ]
